@@ -1,0 +1,386 @@
+{{ 'main-banner.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #header-group {
+    display: none !important;
+  }
+  #MainBanner-{{ section.id }} .btn.choose-gift-btn {
+    background-color: {{ section.settings.choose_gift_btn_bg | default: '#fff544' }};
+    color: {{ section.settings.choose_gift_btn_color | default: '#000000' }};
+  }
+  #MainBanner-{{ section.id }} .btn.choose-gift-btn:hover,
+  #MainBanner-{{ section.id }} .btn.choose-gift-btn:hover span {
+    color: #ffffff !important;
+  }
+  #MainBanner-{{ section.id }} .btn.btn-shop-now {
+    background-color: {{ section.settings.shop_now_btn_bg | default: '#000000' }};
+    color: {{ section.settings.shop_now_btn_color | default: '#ffffff' }};
+  }
+  #MainBanner-{{ section.id }} .btn.btn-shop-now:hover,
+  #MainBanner-{{ section.id }} .btn.btn-shop-now:hover span {
+    color: #000000 !important;
+  }
+  #MainBanner-{{ section.id }} .banner-bottom-bar {
+    background-color: {{ section.settings.bottom_bar_bg | default: '#f5f5f5' }};
+  }
+  #MainBanner-{{ section.id }} .banner-bottom-bar p {
+    color: {{ section.settings.bottom_bar_text_color | default: '#000000' }};
+  }
+</style>
+
+<section class="main-banner-section" id="MainBanner-{{ section.id }}">
+  <!-- Desktop Header Top Bar -->
+  <div class="header-top-bar desktop">
+    <div class="main-logo">
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+        {% if section.settings.main_logo != blank %}
+          <img
+            class="main-logo__image"
+            src="{{ section.settings.main_logo | image_url: width: 400 }}"
+            alt="{{ section.settings.main_logo.alt | default: shop.name }}"
+            width="{{ section.settings.logo_width | default: 153 }}"
+            style="max-width: {{ section.settings.logo_width | default: 153 }}px;"
+            loading="eager"
+          >
+        {% elsif section.settings.logo_text != blank %}
+          <span class="main-logo__text">{{ section.settings.logo_text }}</span>
+        {% else %}
+          <img
+            class="main-logo__image"
+            src="{{ 'logo.png' | asset_url }}"
+            alt="TISSO VISON"
+            width="{{ section.settings.logo_width | default: 153 }}"
+            style="max-width: {{ section.settings.logo_width | default: 153 }}px;"
+            loading="eager"
+          >
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="top-bar-desc">
+      <p>{{ section.settings.top_bar_content }}</p>
+    </div>
+
+    <div class="top-bar-btn">
+      <a href="{{ section.settings.choose_gift_link | default: routes.all_products_collection_url }}" class="btn choose-gift-btn">
+        <span>{{ section.settings.choose_gift_btn_text }}</span>
+        <span class="icon">
+          <img class="arrow-icon" src="{{ 'arrow.png' | asset_url }}" alt="" width="22" height="10">
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Mobile Header Top Bar -->
+  <div class="header-top-bar mobile">
+    <button type="button" id="menu-toggle-{{ section.id }}" class="menu-toggle" aria-label="Toggle Menu">
+      <span class="menu-toggle-bar menu-toggle-bar--top"></span>
+      <span class="menu-toggle-bar menu-toggle-bar--middle"></span>
+      <span class="menu-toggle-bar menu-toggle-bar--bottom"></span>
+    </button>
+
+    <div class="main-logo">
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+        {% if section.settings.main_logo != blank %}
+          <img
+            class="main-logo__image"
+            src="{{ section.settings.main_logo | image_url: width: 300 }}"
+            alt="{{ section.settings.main_logo.alt | default: shop.name }}"
+            width="{{ section.settings.logo_width | default: 153 }}"
+            style="max-width: {{ section.settings.logo_width | default: 153 }}px;"
+            loading="eager"
+          >
+        {% elsif section.settings.logo_text != blank %}
+          <span class="main-logo__text">{{ section.settings.logo_text }}</span>
+        {% else %}
+          <img
+            class="main-logo__image"
+            src="{{ 'logo.png' | asset_url }}"
+            alt="TISSO VISON"
+            width="{{ section.settings.logo_width | default: 153 }}"
+            style="max-width: {{ section.settings.logo_width | default: 153 }}px;"
+            loading="eager"
+          >
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="nav-content" id="nav-content-{{ section.id }}">
+      <div class="top-bar-desc">
+        <p>{{ section.settings.top_bar_content }}</p>
+      </div>
+      <div class="main-btn">
+        <a href="{{ section.settings.choose_gift_link | default: routes.all_products_collection_url }}" class="btn choose-gift-btn">
+          <span>{{ section.settings.choose_gift_btn_text }}</span>
+          <span class="icon">
+            <img class="arrow-icon" src="{{ 'arrow.png' | asset_url }}" alt="" width="22" height="10">
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Illustration Banner & Content -->
+  <div class="main-banner-container">
+    <div class="main-banner-img">
+      {% if section.settings.banner_hero_img != blank %}
+        <img
+          class="main-banner-img__image"
+          src="{{ section.settings.banner_hero_img | image_url: width: 1440 }}"
+          alt="{{ section.settings.banner_hero_img.alt | default: section.settings.heading }}"
+          width="1440"
+          height="390"
+          loading="eager"
+        >
+      {% else %}
+        <img
+          class="main-banner-img__image"
+          src="{{ 'banner-hero-img.png' | asset_url }}"
+          alt="The Gift Guide Items"
+          width="1440"
+          height="390"
+          loading="eager"
+        >
+      {% endif %}
+    </div>
+
+    <div class="content-main">
+      <div class="content-main__info content-section">
+        {% if section.settings.heading != blank %}
+          <h1 class="content-main__info__heading">{{ section.settings.heading }}</h1>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          {% if section.settings.description_mobile != blank %}
+            <p class="content-main__info__desc desc-desktop">{{ section.settings.description }}</p>
+            <p class="content-main__info__desc desc-mobile">{{ section.settings.description_mobile }}</p>
+          {% else %}
+            <p class="content-main__info__desc">{{ section.settings.description }}</p>
+          {% endif %}
+        {% endif %}
+
+        {% if section.settings.shop_now_text != blank %}
+          <a href="{{ section.settings.shop_now_link | default: routes.all_products_collection_url }}" class="btn btn-shop-now btn-shop-now-desktop">
+            <span>{{ section.settings.shop_now_text }}</span>
+            <span class="icon">
+              <img src="{{ 'arrow-white.png' | asset_url }}" alt="" width="24" height="11">
+            </span>
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="content-main__info image-section">
+        {% if section.settings.banner_content_img != blank %}
+          <img
+            class="main-banner-content__image desktop-image"
+            src="{{ section.settings.banner_content_img | image_url: width: 890 }}"
+            alt="{{ section.settings.banner_content_img.alt | default: section.settings.heading }}"
+            width="890"
+            height="402"
+            loading="eager"
+          >
+        {% else %}
+          <img
+            class="main-banner-content__image desktop-image"
+            src="{{ 'banner-content-img.png' | asset_url }}"
+            alt="The Gift Guide Illustration"
+            width="890"
+            height="402"
+            loading="eager"
+          >
+        {% endif %}
+
+        <img
+          class="main-banner-content__image mobile-image"
+          src="{{ 'banner-mobile-img.png' | asset_url }}"
+          alt="The Gift Guide Illustration"
+          width="738"
+          height="520"
+          loading="eager"
+        >
+
+        {% if section.settings.shop_now_text != blank %}
+          <a href="{{ section.settings.shop_now_link | default: routes.all_products_collection_url }}" class="btn btn-shop-now btn-shop-now-mobile">
+            <span>{{ section.settings.shop_now_text }}</span>
+            <span class="icon">
+              <img src="{{ 'arrow-white.png' | asset_url }}" alt="" width="24" height="11">
+            </span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Announcement Bar -->
+  <div class="banner-bottom-bar bottom-bar-desktop">
+    <p>{{ section.settings.banner_bottom_bar_text }}</p>
+  </div>
+  <div class="banner-bottom-bar bottom-bar-mobile">
+    <p>{{ section.settings.banner_bottom_bar_text_mobile }}</p>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var toggle = document.getElementById('menu-toggle-{{ section.id }}');
+    var nav = document.getElementById('nav-content-{{ section.id }}');
+    if (toggle && nav) {
+      toggle.addEventListener('click', function() {
+        document.body.classList.toggle('banner-nav-open');
+        nav.classList.toggle('open');
+        toggle.classList.toggle('active');
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Main Banner (Figma)",
+  "class": "main-banner-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top Bar / Header"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text (Fallback)",
+      "default": "TISSO VISON"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo Width",
+      "default": 155
+    },
+    {
+      "type": "text",
+      "id": "top_bar_content",
+      "label": "Top Announcement Text",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "choose_gift_btn_text",
+      "label": "Top Button Label",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "choose_gift_link",
+      "label": "Top Button Link"
+    },
+    {
+      "type": "color",
+      "id": "choose_gift_btn_bg",
+      "label": "Top Button Background Color",
+      "default": "#fff544"
+    },
+    {
+      "type": "color",
+      "id": "choose_gift_btn_color",
+      "label": "Top Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Hero Section Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description Text",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "textarea",
+      "id": "description_mobile",
+      "label": "Description Text (Mobile)",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination."
+    },
+    {
+      "type": "text",
+      "id": "shop_now_text",
+      "label": "Hero Button Label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "shop_now_link",
+      "label": "Hero Button Link"
+    },
+    {
+      "type": "color",
+      "id": "shop_now_btn_bg",
+      "label": "Hero Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "shop_now_btn_color",
+      "label": "Hero Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_hero_img",
+      "label": "Top Illustration Banner (Optional override)"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_content_img",
+      "label": "Right Illustration Banner (Optional override)"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Bar"
+    },
+    {
+      "type": "text",
+      "id": "banner_bottom_bar_text",
+      "label": "Bottom Bar Text (Desktop)",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    },
+    {
+      "type": "text",
+      "id": "banner_bottom_bar_text_mobile",
+      "label": "Bottom Bar Text (Mobile)",
+      "default": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
+    },
+    {
+      "type": "color",
+      "id": "bottom_bar_bg",
+      "label": "Bottom Bar Background Color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "bottom_bar_text_color",
+      "label": "Bottom Bar Text Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Banner (Figma)"
+    }
+  ]
+}
+{% endschema %}
